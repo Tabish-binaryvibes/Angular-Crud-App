@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from './models/user';
-import { UserService } from './services/user.service';
+import { employee } from './models/employee';
+import { EmployeeService } from './services/employee.service';
+
 
 @Component({
   selector: 'app-root',
@@ -9,68 +10,68 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent implements OnInit {
 
-  users: User[];
-  userForm: boolean;
-  isNewUser: boolean;
-  newUser: any = {};
-  editUserForm: boolean;
-  editedUser: any = {};
+  employees: employee[];
+  employeeForm: boolean;
+  isNewemployee: boolean;
+  newemployee: any = {};
+  editemployeeForm: boolean;
+  editedemployee: any = {};
 
-  constructor(private userService: UserService) { }
+  constructor(private employeeService: EmployeeService) { }
 
   ngOnInit() {
-    this.users = this.getUsers();
+    this.employees = this.getemployees();
   }
 
-  getUsers(): User[] {
-    return this.userService.getUsersFromData();
+  getemployees(): employee[] {
+    return this.employeeService.getEmployeeFromData()
   }
 
-  showEditUserForm(user: User) {
-    if (!user) {
-      this.userForm = false;
+  showEditemployeeForm(employee: employee) {
+    if (!employee) {
+      this.employeeForm = false;
       return;
     }
-    this.editUserForm = true;
-    this.editedUser = user;
+    this.editemployeeForm = true;
+    this.editedemployee = employee;
   }
 
-  showAddUserForm() {
-    // resets form if edited user
-    if (this.users.length) {
-      this.newUser = {};
+  showAddemployeeForm() {
+    // resets form if edited employee
+    if (this.employees.length) {
+      this.newemployee = {};
     }
-    this.userForm = true;
-    this.isNewUser = true;
+    this.employeeForm = true;
+    this.isNewemployee = true;
 
   }
 
-  saveUser(user: User) {
-    if (this.isNewUser) {
-      // add a new user
-      this.userService.addUser(user);
+  saveemployee(employee: employee) {
+    if (this.isNewemployee) {
+      // add a new employee
+      this.employeeService.addEmployee(employee);
     }
-    this.userForm = false;
+    this.employeeForm = false;
   }
 
-  updateUser() {
-    this.userService.updateUser(this.editedUser);
-    this.editUserForm = false;
-    this.editedUser = {};
+  updateemployee() {
+    this.employeeService.updateEmployee(this.editedemployee);
+    this.editemployeeForm = false;
+    this.editedemployee = {};
   }
 
-  removeUser(user: User) {
-    this.userService.deleteUser(user);
+  removeemployee(employee: employee) {
+    this.employeeService.deleteEmployee(employee);
   }
 
   cancelEdits() {
-    this.editedUser = {};
-    this.editUserForm = false;
+    this.editedemployee = {};
+    this.editemployeeForm = false;
   }
 
-  cancelNewUser() {
-    this.newUser = {};
-    this.userForm = false;
+  cancelNewemployee() {
+    this.newemployee = {};
+    this.employeeForm = false;
   }
 
 }
